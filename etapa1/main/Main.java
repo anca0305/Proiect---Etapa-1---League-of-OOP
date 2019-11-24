@@ -11,7 +11,7 @@ public class Main {
         GameInput gameInput = gameInputLoader.load();
         //System.out.println(gameInput.getNrRunde());
         Character[][] harta;
-        harta = gameInput.getHarta();
+        harta = gameInput.getMap();
         System.out.println(harta[0][1]);
     }
 }

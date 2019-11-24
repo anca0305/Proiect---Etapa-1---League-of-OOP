@@ -18,48 +18,48 @@ public class GameInputLoader {
      * Sa inceapa jocul!
      */
     public GameInput load() {
-        List<Character> jucatori = new ArrayList<>();
-        Character[][] mutari = new Character[0][];
-        Character[][] harta = new Character[0][];
-        Integer[][] pozitiiJucatori = new Integer[0][];
-        String liniaCurenta;
-        String mutariRundaCurenta;
-        int linii = 0;
-        int coloane = 0;
-        int nrJucatori = 0;
-        int nrRunde = 0;
+        List<Character> heroes = new ArrayList<>();
+        Character[][] moves = new Character[0][];
+        Character[][] map = new Character[0][];
+        Integer[][] heroesPosition = new Integer[0][];
+        String currentRow;
+        String currentRowMoves;
+        int rows = 0;
+        int columns = 0;
+        int noHeroes = 0;
+        int noRounds = 0;
         int i, j;
 
         try {
             FileSystem fs = new FileSystem(mInputPath, mOutputPath);
 
-            linii = fs.nextInt();
-            coloane = fs.nextInt();
-            harta = new Character[linii][coloane];
+            rows = fs.nextInt();
+            columns = fs.nextInt();
+            map = new Character[rows][columns];
 
-            for (i = 0; i < linii; i++) {
-                liniaCurenta = fs.nextWord();
-                for (j = 0; j < coloane; j++) {
-                    harta[i][j] = liniaCurenta.charAt(j);
+            for (i = 0; i < rows; i++) {
+                currentRow = fs.nextWord();
+                for (j = 0; j < columns; j++) {
+                    map[i][j] = currentRow.charAt(j);
                 }
             }
 
-            nrJucatori = fs.nextInt();
-            pozitiiJucatori = new Integer[nrJucatori][2];
+            noHeroes = fs.nextInt();
+            heroesPosition = new Integer[noHeroes][2];
 
-            for (i = 0; i < nrJucatori; ++i) {
-                jucatori.add(fs.nextWord().charAt(0));
-                pozitiiJucatori[i][0] = fs.nextInt();
-                pozitiiJucatori[i][1] = fs.nextInt();
+            for (i = 0; i < noHeroes; ++i) {
+                heroes.add(fs.nextWord().charAt(0));
+                heroesPosition[i][0] = fs.nextInt();
+                heroesPosition[i][1] = fs.nextInt();
             }
 
-            nrRunde = fs.nextInt();
-            mutari = new Character[nrRunde][nrJucatori];
+            noRounds = fs.nextInt();
+            moves = new Character[noRounds][noHeroes];
 
-            for (i = 0; i < nrRunde; i++) {
-                mutariRundaCurenta = fs.nextWord();
-                for (j = 0; j < nrJucatori; j++) {
-                    mutari[i][j] = mutariRundaCurenta.charAt(j);
+            for (i = 0; i < noRounds; i++) {
+                currentRowMoves = fs.nextWord();
+                for (j = 0; j < noHeroes; j++) {
+                    moves[i][j] = currentRowMoves.charAt(j);
                 }
             }
             fs.close();
@@ -68,6 +68,6 @@ public class GameInputLoader {
             e1.printStackTrace();
         }
 
-        return new GameInput(nrRunde, harta, jucatori, pozitiiJucatori, mutari);
+        return new GameInput(noRounds, map, heroes, heroesPosition, moves);
     }
 }
