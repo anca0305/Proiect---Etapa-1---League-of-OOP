@@ -3,11 +3,11 @@ package com.etapa1.main;
 import java.util.List;
 
 public class GameInput {
-    final Character[][] map;
-    final List<Character> heroes;
-    final Integer[][] heroesPosition;
-    final Character[][] moves;
-    final int noRounds;
+    private final Character[][] map;
+    private final List<Character> heroes;
+    private final Integer[][] heroesPosition;
+    private final Character[][] moves;
+    private final int noRounds;
 
     GameInput() {
         map = null;

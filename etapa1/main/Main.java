@@ -1,5 +1,10 @@
 package com.etapa1.main;
 
+import com.etapa1.heroes.Hero;
+import com.etapa1.heroes.HeroesFactory;
+
+import java.util.ArrayList;
+
 public class Main {
 
     private Main() {
@@ -10,8 +15,9 @@ public class Main {
         GameInputLoader gameInputLoader = new GameInputLoader(args[0], args[1]);
         GameInput gameInput = gameInputLoader.load();
         //System.out.println(gameInput.getNrRunde());
-        Character[][] harta;
-        harta = gameInput.getMap();
-        System.out.println(harta[0][1]);
+        ArrayList<Hero> heroes;
+        HeroesFactory hf = new HeroesFactory();
+        heroes = hf.createHeroes(gameInput.getHeroes(), gameInput.getHeroesPosition());
+        System.out.println(heroes.get(2).getBonusDamage());
     }
 }
