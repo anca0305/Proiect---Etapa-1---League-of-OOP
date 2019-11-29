@@ -1,4 +1,4 @@
-package com.etapa1.heroes;
+package heroes;
 
 public class Wizard extends Hero {
 

@@ -1,4 +1,4 @@
-package com.etapa1.map;
+package map;
 
 public class GameMap {
     private static GameMap instance = null;

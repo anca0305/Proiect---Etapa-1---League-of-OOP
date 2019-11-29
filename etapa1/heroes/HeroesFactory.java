@@ -1,4 +1,4 @@
-package com.etapa1.heroes;
+package heroes;
 
 import java.util.ArrayList;
 import java.util.List;

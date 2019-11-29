@@ -1,7 +1,7 @@
-package com.etapa1.main;
+package main;
 
-import com.etapa1.heroes.Hero;
-import com.etapa1.heroes.HeroesFactory;
+import heroes.Hero;
+import heroes.HeroesFactory;
 
 import java.util.ArrayList;
 
