@@ -1,10 +1,6 @@
 package angels;
 
-import common.Constants;
-import angels.*;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public final class AngelsFactory {
 
@@ -13,7 +9,7 @@ public final class AngelsFactory {
 
     public static Angel createAngel(final String angelType, final int round, final int x, final int y) {
         switch (angelType) {
-            case 'K':
+            case "DamageAngel":
 
             default:
                 return null;
@@ -26,7 +22,7 @@ public final class AngelsFactory {
         int i;
         for (i = 0; i < angels.size(); i++) {
             angelsList.add(createAngel(angels.get(i), angelsPosition[i][0], angelsPosition[i][1],
-                    angelsPosition[i][2]);
+                    angelsPosition[i][2]));
         }
         return angelsList;
     }
