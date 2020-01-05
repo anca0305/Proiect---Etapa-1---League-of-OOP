@@ -1,28 +1,37 @@
 package angels;
 
-import heroes.Knight;
-import heroes.Pyromancer;
-import heroes.Rogue;
-import heroes.Wizard;
+import common.Constants;
+import heroes.*;
 
 public class LifeGiver extends Angel {
-    @Override
-    public void interactWith(Knight knight) {
 
+    public LifeGiver(final int round, final int x, final int y, final String name,
+                     final int type) {
+        super(round, x, y, name, type);
     }
 
     @Override
-    public void interactWith(Pyromancer pyromancer) {
-
+    public void interactWith(final Knight knight) {
+        knight.setHp(knight.getHp() + Constants.HPMODIFIER100);
     }
 
     @Override
-    public void interactWith(Rogue rogue) {
-
+    public void interactWith(final Pyromancer pyromancer) {
+        pyromancer.setHp(pyromancer.getHp() + Constants.HPMODIFIER80);
     }
 
     @Override
-    public void interactWith(Wizard wizard) {
+    public void interactWith(final Rogue rogue) {
+        rogue.setHp(rogue.getHp() + Constants.HPMODIFIER90);
+    }
 
+    @Override
+    public void interactWith(final Wizard wizard) {
+        wizard.setHp(wizard.getHp() + Constants.HPMODIFIER120);
+    }
+
+    @Override
+    public void accept(final Hero h) {
+        h.accept(this);
     }
 }
