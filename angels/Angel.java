@@ -30,7 +30,9 @@ public abstract class Angel {
     public abstract void interactWith(Wizard wizard);
 
     public abstract void accept(Hero h);
-
+    /**
+     * Verificarea suprapunerii pozitiei unui inger cu un erou.
+     */
     public int checkPosition(final Hero h) {
         if (h.getX() == this.getX()) {
             if (h.getY() == this.getY()) {
@@ -39,54 +41,68 @@ public abstract class Angel {
         }
         return 0;
     }
-
+    public int checkPosition2(final Hero h) {
+        if (h.getOldX() == this.getX()) {
+            if (h.getOldY() == this.getY()) {
+                return 1;
+            }
+        }
+        return 0;
+    }
+    /**
+     * Getter pentru numele ingerului.
+     */
     public String getName() {
         return name;
     }
-
+    /**
+     * Getter pentru runda in care apare ingerul.
+     */
     public int getRound() {
         return round;
     }
-
+    /**
+     * Getter pentru prima coordonata a pozitiei ingerului.
+     */
     public int getX() {
         return x;
     }
-
+    /**
+     * Getter pentru pentru cea de-a doua coordonata a pozitiei ingerului.
+     */
     public int getY() {
         return y;
     }
-
+    /**
+     * Getter pentru tipul ingerului.
+     */
     public int getType() {
         return type;
     }
-
+    /**
+     * Functie de afisare. Aici se va folosi tipul ingerului pentru a determina actiunea
+     * pe care acesta o executa asupra unui erou.
+     */
     public void action(final Hero h, final BufferedWriter writer) throws IOException {
-//        for (int noLevels = h.getOldLevel() + 1 ; noLevels <= h.getLevel() ; noLevels++) {
-//            System.out.println("Player " + h.getName() + " " + h.getID()
-//                    + " reached level " + noLevels);
-//            writer.write("Player " + h.getName() + " " + h.getID()
-//                    + " reached level " + noLevels);
-//        }
         if (this.getType() == Constants.ANGELTYPE1 || this.getType() == Constants.ANGELTYPE3) {
             writer.write(this.getName() + " helped " + h.getName() + " " + h.getID());
-            System.out.println(this.getName() + " helped " + h.getName() + " " + h.getID());
         }
         if (this.getType() == Constants.ANGELTYPE2 || this.getType() == Constants.ANGELTYPE4) {
             writer.write(this.getName() + " hit " + h.getName() + " " + h.getID());
-            System.out.println(this.getName() + " hit " + h.getName() + " " + h.getID());
         }
         if (this.getType() == Constants.ANGELTYPE3) {
             writer.write("\n" + "Player " + h.getName() + " " + h.getID()
-                    + " was brought to life by an angel");
-            System.out.println("Player " + h.getName() + " " + h.getID()
                     + " was brought to life by an angel");
         }
         if (this.getType() == Constants.ANGELTYPE4) {
             writer.write("\n" + "Player " + h.getName() + " " + h.getID()
                     + " was killed by an angel");
-            System.out.println("Player " + h.getName() + " " + h.getID()
-                    + " was killed by an angel");
         }
         writer.write("\n");
+        if (this.getType() == Constants.ANGELTYPE1 || this.getType() == Constants.ANGELTYPE2) {
+            for (int i = h.getOldLevel() + 1; i <= h.getLevel(); i++) {
+                writer.write(h.getName() + " " + h.getID() + " reached level " + i + "\n");
+            }
+        }
     }
 }

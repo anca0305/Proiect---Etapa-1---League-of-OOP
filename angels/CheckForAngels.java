@@ -15,11 +15,16 @@ public class CheckForAngels {
         this.angels = angels;
         this.angelsPosition = angelsPosition;
     }
-
+    /**
+     * Functie ce determina daca un inger si un erou se afla in aceeasi pozitie pe harta.
+     */
     public void check(final Hero h) {
+        if (h.getCurrentRound() == 0) {
+            return;
+        }
         for (Angel a : angels) {
-            if (a.getRound() == h.getCurrentRound()) {
-                if (a.checkPosition(h) == 1 && a.getType() <= 2) {
+            if (a.getRound() == (h.getCurrentRound() - 1)) {
+                if (a.checkPosition2(h) == 1 && a.getType() <= 2) {
                     h.interactWith(a);
                     h.setChecked(1);
                 }
