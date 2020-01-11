@@ -45,6 +45,7 @@ public class Moves {
                 if (heroes.get(i).getNoRoundsCantMove() == 0) {
                     makeMove(moves[currentRound][i], heroes.get(i),
                             heroes.get(i).getX(), heroes.get(i).getY());
+                    heroes.get(i).strategy();
                 } else {
                     heroes.get(i).setNoRoundsCantMove(heroes.get(i).getNoRoundsCantMove() - 1);
                 }

@@ -1,7 +1,11 @@
 package angels;
 
 import common.Constants;
-import heroes.*;
+import heroes.Hero;
+import heroes.Knight;
+import heroes.Pyromancer;
+import heroes.Rogue;
+import heroes.Wizard;
 
 public class LifeGiver extends Angel {
 
@@ -14,13 +18,19 @@ public class LifeGiver extends Angel {
      */
     @Override
     public void interactWith(final Knight knight) {
-        knight.setHp(knight.getHp() + Constants.HPMODIFIER100);
+        int maxLevelHp = knight.getInitialhp() + knight.getLevel() * knight.getHpperlevel();
+        if ((knight.getHp() + Constants.HPMODIFIER100) <= maxLevelHp) {
+            knight.setHp(knight.getHp() + Constants.HPMODIFIER100);
+        }
     }
     /**
      * Functie ce aplica modificarile date de LifeGiver unui erou de tip Pyromancer.
      */
     @Override
     public void interactWith(final Pyromancer pyromancer) {
+        int maxLevelHp = pyromancer.getInitialhp()
+                + pyromancer.getLevel() * pyromancer.getHpperlevel();
+        if ((pyromancer.getHp() + Constants.HPMODIFIER80) <= maxLevelHp)
         pyromancer.setHp(pyromancer.getHp() + Constants.HPMODIFIER80);
     }
     /**
@@ -28,14 +38,20 @@ public class LifeGiver extends Angel {
      */
     @Override
     public void interactWith(final Rogue rogue) {
-        rogue.setHp(rogue.getHp() + Constants.HPMODIFIER90);
+        int maxLevelHp = rogue.getInitialhp() + rogue.getLevel() * rogue.getHpperlevel();
+        if ((rogue.getHp() + Constants.HPMODIFIER90) <= maxLevelHp) {
+            rogue.setHp(rogue.getHp() + Constants.HPMODIFIER90);
+        }
     }
     /**
      * Functie ce aplica modificarile date de LifeGiver unui erou de tip Wizard.
      */
     @Override
     public void interactWith(final Wizard wizard) {
-        wizard.setHp(wizard.getHp() + Constants.HPMODIFIER120);
+        int maxLevelHp = wizard.getInitialhp() + wizard.getLevel() * wizard.getHpperlevel();
+        if ((wizard.getHp() + Constants.HPMODIFIER120) <= maxLevelHp) {
+            wizard.setHp(wizard.getHp() + Constants.HPMODIFIER120);
+        }
     }
     /**
      * Functie folosita pentru a creea legatura folosita de catre tehnica double dispatch.

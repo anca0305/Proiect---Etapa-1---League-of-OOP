@@ -1,0 +1,5 @@
+Starting audit...
+[ERROR] /mnt/c/Users/AncaMaria/Desktop/teme/proiect-etapa1-league-of-oop/src/angels/LifeGiver.java:33: 'if' construct must use '{}'s. [NeedBraces]
+[ERROR] /mnt/c/Users/AncaMaria/Desktop/teme/proiect-etapa1-league-of-oop/src/heroes/Hero.java:360:34: Parameter showEvolution should be final. [FinalParameters]
+Audit done.
+Checkstyle ends with 2 errors.

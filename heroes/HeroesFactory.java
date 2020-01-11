@@ -15,16 +15,16 @@ public final class HeroesFactory {
         switch (heroType) {
             case 'K':
                 return new Knight('L', x, y, Constants.INITIALHPK,
-                        Constants.HPPERLEVELK, Constants.BONUSDAMAGEK, i, "Knight");
+                        Constants.HPPERLEVELK, Constants.BONUSDAMAGEK, i);
             case 'P':
                 return new Pyromancer('V', x, y, Constants.INITIALHPP,
-                        Constants.HPPERLEVELP, Constants.BONUSDAMAGEP, i, "Pyromancer");
+                        Constants.HPPERLEVELP, Constants.BONUSDAMAGEP, i);
             case 'R':
                 return new Rogue('W', x, y, Constants.INITIALHPR,
-                        Constants.HPPERLEVELR, Constants.BONUSDAMAGER, i, "Rogue");
+                        Constants.HPPERLEVELR, Constants.BONUSDAMAGER, i);
             case 'W':
                 return new Wizard('D', x, y, Constants.INITIALHPW,
-                        Constants.HPPERLEVELW, Constants.BONUSDAMAGEW, i, "Wizard");
+                        Constants.HPPERLEVELW, Constants.BONUSDAMAGEW, i);
             default:
                 return null;
         }

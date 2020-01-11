@@ -1,16 +1,25 @@
 package heroes;
 
-import angels.*;
+import angels.Angel;
+import angels.DamageAngel;
+import angels.DarkAngel;
+import angels.Dracula;
+import angels.GoodBoy;
+import angels.LevelUpAngel;
+import angels.LifeGiver;
+import angels.SmallAngel;
+import angels.Spawner;
+import angels.TheDoomer;
+import angels.XPAngel;
 import common.Constants;
-
-import java.util.ArrayList;
 
 public final class Rogue extends Hero {
 
     public Rogue(final Character mainGround, final int x, final int y,
-                  final int initialhp, final int hpperlevel, final float bonusDamage,
-                  final int id, final String name) {
-        super(mainGround, x, y, initialhp, hpperlevel, bonusDamage, id, name);
+                 final int initialhp, final int hpperlevel, final float bonusDamage,
+                 final int id) {
+        super(mainGround, x, y, initialhp, hpperlevel, bonusDamage, id);
+        this.name = "Rogue";
     }
 
     @Override
@@ -20,26 +29,34 @@ public final class Rogue extends Hero {
 
     @Override
     public void calculateRaceAmplification(final Knight knight) {
-        this.raceAmplificationFA = Constants.RACEAMPIFICATION09;
-        this.raceAmplificationSA = Constants.RACEAMPIFICATION08;
+        this.raceAmplificationFA = Constants.RACEAMPIFICATION09 + this.angelModifier
+                + this.strategyModifier;
+        this.raceAmplificationSA = Constants.RACEAMPIFICATION08 + this.angelModifier
+                + this.strategyModifier;
     }
 
     @Override
     public void calculateRaceAmplification(final Pyromancer pyromancer) {
-        this.raceAmplificationFA = Constants.RACEAMPIFICATION125;
-        this.raceAmplificationSA = Constants.RACEAMPIFICATION12;
+        this.raceAmplificationFA = Constants.RACEAMPIFICATION125 + this.angelModifier
+                + this.strategyModifier;
+        this.raceAmplificationSA = Constants.RACEAMPIFICATION12 + this.angelModifier
+                + this.strategyModifier;
     }
 
     @Override
     public void calculateRaceAmplification(final Rogue rogue) {
-        this.raceAmplificationFA = Constants.RACEAMPIFICATION12;
-        this.raceAmplificationSA = Constants.RACEAMPIFICATION09;
+        this.raceAmplificationFA = Constants.RACEAMPIFICATION12 + this.angelModifier
+                + this.strategyModifier;
+        this.raceAmplificationSA = Constants.RACEAMPIFICATION09 + this.angelModifier
+                + this.strategyModifier;
     }
 
     @Override
     public void calculateRaceAmplification(final Wizard wizard) {
-        this.raceAmplificationFA = Constants.RACEAMPIFICATION125;
-        this.raceAmplificationSA = Constants.RACEAMPIFICATION125;
+        this.raceAmplificationFA = Constants.RACEAMPIFICATION125 + this.angelModifier
+                + this.strategyModifier;
+        this.raceAmplificationSA = Constants.RACEAMPIFICATION125 + this.angelModifier
+                + this.strategyModifier;
     }
     /**
      * @param ground Tipul terenului pe care va avea loc lupta
@@ -60,9 +77,7 @@ public final class Rogue extends Hero {
      * vor fi sub efectul celei de-a doua abilitate vor fi duble.
      */
     @Override
-    public void calculateDamage(final Character ground, final Hero h, final int level,
-                                final Character[][] map, final ArrayList<Angel> angels,
-                                final Integer[][] angelsPosition) {
+    public void calculateDamage(final Character ground, final Hero h, final int level) {
         h.setKiller(this);
         int dif = this.currentGround - this.getMainGround();
         this.setDamageAbilities(level);
@@ -74,8 +89,6 @@ public final class Rogue extends Hero {
         float toRoundDamageFA = this.damageFirstAbility;
         toRoundDamageFA *= this.calculateGroundAmplification(ground);
         h.calculateRaceAmplificationFor(this);
-        CheckForAngels check = new CheckForAngels(map, angels, angelsPosition);
-        check.check(this);
         toRoundDamageFA *= this.raceAmplificationFA;
         float toRoundDamageSA = this.damageSecondAbility;
         toRoundDamageSA *= this.calculateGroundAmplification(ground);
@@ -157,5 +170,20 @@ public final class Rogue extends Hero {
     @Override
     public void interactWith(final Angel a) {
         a.accept(this);
+    }
+
+    @Override
+    public void strategy() {
+        float maxLevelHp = this.getInitialhp() + this.getLevel() * this.getHpperlevel();
+        if (maxLevelHp / Constants.SEVEN < this.getHp()) {
+            if (this.getHp() < maxLevelHp / Constants.FIVE) {
+                this.setHp((int) (this.getHp() * Constants.HPMODIFIER67));
+                this.strategyModifier += Constants.STRATEGYMODIFIER04;
+            }
+        }
+        if (this.getHp() < maxLevelHp / Constants.SEVEN) {
+            this.setHp((int) (this.getHp() * Constants.HPMODIFIER015));
+            this.strategyModifier -= Constants.STRATEGYMODIFIER01;
+        }
     }
 }

@@ -1,7 +1,11 @@
 package angels;
 
 import common.Constants;
-import heroes.*;
+import heroes.Hero;
+import heroes.Knight;
+import heroes.Pyromancer;
+import heroes.Rogue;
+import heroes.Wizard;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -36,14 +40,6 @@ public abstract class Angel {
     public int checkPosition(final Hero h) {
         if (h.getX() == this.getX()) {
             if (h.getY() == this.getY()) {
-                return 1;
-            }
-        }
-        return 0;
-    }
-    public int checkPosition2(final Hero h) {
-        if (h.getOldX() == this.getX()) {
-            if (h.getOldY() == this.getY()) {
                 return 1;
             }
         }
@@ -103,6 +99,8 @@ public abstract class Angel {
             for (int i = h.getOldLevel() + 1; i <= h.getLevel(); i++) {
                 writer.write(h.getName() + " " + h.getID() + " reached level " + i + "\n");
             }
+            h.setOldLevel(h.getLevel());
         }
     }
+
 }

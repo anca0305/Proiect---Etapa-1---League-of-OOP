@@ -1,6 +1,10 @@
 package angels;
 
-import heroes.*;
+import heroes.Hero;
+import heroes.Knight;
+import heroes.Pyromancer;
+import heroes.Rogue;
+import heroes.Wizard;
 
 public class TheDoomer extends Angel {
 

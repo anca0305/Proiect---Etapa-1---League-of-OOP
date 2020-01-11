@@ -1,16 +1,25 @@
 package heroes;
 
-import angels.*;
+import angels.Angel;
+import angels.DamageAngel;
+import angels.DarkAngel;
+import angels.Dracula;
+import angels.GoodBoy;
+import angels.LevelUpAngel;
+import angels.LifeGiver;
+import angels.SmallAngel;
+import angels.Spawner;
+import angels.TheDoomer;
+import angels.XPAngel;
 import common.Constants;
-
-import java.util.ArrayList;
 
 public final class Wizard extends Hero {
 
     public Wizard(final Character mainGround, final int x, final int y,
                   final int initialhp, final int hpperlevel, final float bonusDamage,
-                  final int id, final String name) {
-        super(mainGround, x, y, initialhp, hpperlevel, bonusDamage, id, name);
+                  final int id) {
+        super(mainGround, x, y, initialhp, hpperlevel, bonusDamage, id);
+        this.name = "Wizard";
     }
 
     @Override
@@ -20,25 +29,32 @@ public final class Wizard extends Hero {
 
     @Override
     public void calculateRaceAmplification(final Knight knight) {
-        this.raceAmplificationFA = Constants.RACEAMPIFICATION12;
-        this.raceAmplificationSA = Constants.RACEAMPIFICATION14;
+        this.raceAmplificationFA = Constants.RACEAMPIFICATION12 + this.angelModifier
+                + this.strategyModifier;
+        this.raceAmplificationSA = Constants.RACEAMPIFICATION14 + this.angelModifier
+                + this.strategyModifier;
     }
 
     @Override
     public void calculateRaceAmplification(final Pyromancer pyromancer) {
-        this.raceAmplificationFA = Constants.RACEAMPIFICATION09;
-        this.raceAmplificationSA = Constants.RACEAMPIFICATION13;
+        this.raceAmplificationFA = Constants.RACEAMPIFICATION09 + this.angelModifier
+                + this.strategyModifier;
+        this.raceAmplificationSA = Constants.RACEAMPIFICATION13 + this.angelModifier
+                + this.strategyModifier;
     }
 
     @Override
     public void calculateRaceAmplification(final Rogue rogue) {
-        this.raceAmplificationFA = Constants.RACEAMPIFICATION08;
-        this.raceAmplificationSA = Constants.RACEAMPIFICATION12;
+        this.raceAmplificationFA = Constants.RACEAMPIFICATION08 + this.angelModifier
+                + this.strategyModifier;
+        this.raceAmplificationSA = Constants.RACEAMPIFICATION12 + this.angelModifier
+                + this.strategyModifier;
     }
 
     @Override
     public void calculateRaceAmplification(final Wizard wizard) {
-        this.raceAmplificationFA = Constants.RACEAMPIFICATION105;
+        this.raceAmplificationFA = Constants.RACEAMPIFICATION105 + this.angelModifier
+                + this.strategyModifier;
         this.raceAmplificationSA = Constants.DEFAULTRACEAMPIFICATION;
     }
     /**
@@ -51,16 +67,12 @@ public final class Wizard extends Hero {
      * Vom calcula damage-ul dat de fiecare abilitate si il vom aplica eroului atacat.
      */
     @Override
-    public void calculateDamage(final Character ground, final Hero h, final int level,
-                                final Character[][] map, final ArrayList<Angel> angels,
-                                final Integer[][] angelsPosition) {
+    public void calculateDamage(final Character ground, final Hero h, final int level) {
         h.setKiller(this);
         float procent = Constants.DEFAULTPROCENTAGEFAW
                 + Constants.PROCENTAGEPERLEVELFAW * this.getLevel();
         float aux;
         h.calculateRaceAmplificationFor(this);
-        CheckForAngels check = new CheckForAngels(map, angels, angelsPosition);
-        check.check(this);
         procent *= this.raceAmplificationFA;
         procent *= this.calculateGroundAmplification(ground);
         float min = h.getInitialhp() + h.getLevel() * h.getHpperlevel();
@@ -79,7 +91,7 @@ public final class Wizard extends Hero {
             h.receiveDamage(Math.round(aux));
             return;
         }
-        h.calculateDamage(ground, this, level, map, angels, angelsPosition);
+        h.calculateDamage(ground, this, level);
         this.setHp(this.getHp() + h.damage);
         procent *= this.calculateGroundAmplification(ground);
         procent *= (Math.round(h.damageFirstAbility * h.calculateGroundAmplification(ground))
@@ -155,5 +167,20 @@ public final class Wizard extends Hero {
     @Override
     public void interactWith(final Angel a) {
         a.accept(this);
+    }
+
+    @Override
+    public void strategy() {
+        float maxLevelHp = this.getInitialhp() + this.getLevel() * this.getHpperlevel();
+        if (maxLevelHp / Constants.FOUR < this.getHp()) {
+            if (this.getHp() < maxLevelHp / Constants.TWO) {
+                this.setHp((int) (this.getHp() * Constants.HPMODIFIER09));
+                this.strategyModifier += Constants.STRATEGYMODIFIER06;
+            }
+        }
+        if (this.getHp() < maxLevelHp / Constants.FOUR) {
+            this.setHp((int) (this.getHp() * Constants.HPMODIFIER12));
+            this.strategyModifier -= Constants.STRATEGYMODIFIER02;
+        }
     }
 }

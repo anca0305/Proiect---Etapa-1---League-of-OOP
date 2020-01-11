@@ -1,7 +1,11 @@
 package angels;
 
 import common.Constants;
-import heroes.*;
+import heroes.Hero;
+import heroes.Knight;
+import heroes.Pyromancer;
+import heroes.Rogue;
+import heroes.Wizard;
 
 public class DamageAngel extends Angel {
 
@@ -14,34 +18,28 @@ public class DamageAngel extends Angel {
      */
     @Override
     public void interactWith(final Knight knight) {
-        knight.setRaceAmplificationFA(knight.getRaceAmplificationFA() * Constants.RACEMODIFIER115);
-        knight.setRaceAmplificationSA(knight.getRaceAmplificationSA() * Constants.RACEMODIFIER115);
+        knight.setAngelModifier(knight.getAngelModifier() + Constants.ANGELMODIFIER15);
     }
     /**
      * Functie ce aplica modificarile date de DamageAngel unui erou de tip Pyromancer.
      */
     @Override
     public void interactWith(final Pyromancer pyromancer) {
-        pyromancer.setRaceAmplificationFA(pyromancer.getRaceAmplificationFA()
-                * Constants.RACEMODIFIER12);
-        pyromancer.setRaceAmplificationSA(pyromancer.getRaceAmplificationSA()
-                * Constants.RACEMODIFIER12);
+        pyromancer.setAngelModifier(pyromancer.getAngelModifier() + Constants.ANGELMODIFIER2);
     }
     /**
      * Functie ce aplica modificarile date de DamageAngel unui erou de tip Rogue.
      */
     @Override
     public void interactWith(final Rogue rogue) {
-        rogue.setRaceAmplificationFA(rogue.getRaceAmplificationFA() * Constants.RACEMODIFIER13);
-        rogue.setRaceAmplificationSA(rogue.getRaceAmplificationSA() * Constants.RACEMODIFIER13);
+        rogue.setAngelModifier(rogue.getAngelModifier() + Constants.ANGELMODIFIER3);
     }
     /**
      * Functie ce aplica modificarile date de DamageAngel unui erou de tip Wizard.
      */
     @Override
     public void interactWith(final Wizard wizard) {
-        wizard.setRaceAmplificationFA(wizard.getRaceAmplificationFA() * Constants.RACEMODIFIER14);
-        wizard.setRaceAmplificationSA(wizard.getRaceAmplificationSA() * Constants.RACEMODIFIER14);
+        wizard.setAngelModifier(wizard.getAngelModifier() + Constants.ANGELMODIFIER4);
     }
     /**
      * Functie folosita pentru a creea legatura folosita de catre tehnica double dispatch.

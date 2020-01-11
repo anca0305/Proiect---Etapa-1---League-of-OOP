@@ -1,16 +1,25 @@
 package heroes;
 
-import angels.*;
+import angels.Angel;
+import angels.DamageAngel;
+import angels.DarkAngel;
+import angels.Dracula;
+import angels.GoodBoy;
+import angels.LevelUpAngel;
+import angels.LifeGiver;
+import angels.SmallAngel;
+import angels.Spawner;
+import angels.TheDoomer;
+import angels.XPAngel;
 import common.Constants;
-
-import java.util.ArrayList;
 
 public final class Pyromancer extends Hero {
 
     public Pyromancer(final Character mainGround, final int x, final int y,
                   final int initialhp, final int hpperlevel, final float bonusDamage,
-                  final int id, final String name) {
-        super(mainGround, x, y, initialhp, hpperlevel, bonusDamage, id, name);
+                  final int id) {
+        super(mainGround, x, y, initialhp, hpperlevel, bonusDamage, id);
+        this.name = "Pyromancer";
     }
 
     @Override
@@ -20,26 +29,34 @@ public final class Pyromancer extends Hero {
 
     @Override
     public void calculateRaceAmplification(final Knight knight) {
-        this.raceAmplificationFA = Constants.RACEAMPIFICATION12;
-        this.raceAmplificationSA = Constants.RACEAMPIFICATION12;
+        this.raceAmplificationFA = Constants.RACEAMPIFICATION12 + this.angelModifier
+                + this.strategyModifier;
+        this.raceAmplificationSA = Constants.RACEAMPIFICATION12 + this.angelModifier
+                + this.strategyModifier;
     }
 
     @Override
     public void calculateRaceAmplification(final Pyromancer pyromancer) {
-        this.raceAmplificationFA = Constants.RACEAMPIFICATION09;
-        this.raceAmplificationSA = Constants.RACEAMPIFICATION09;
+        this.raceAmplificationFA = Constants.RACEAMPIFICATION09 + this.angelModifier
+                + this.strategyModifier;
+        this.raceAmplificationSA = Constants.RACEAMPIFICATION09 + this.angelModifier
+                + this.strategyModifier;
     }
 
     @Override
     public void calculateRaceAmplification(final Rogue rogue) {
-        this.raceAmplificationFA = Constants.RACEAMPIFICATION08;
-        this.raceAmplificationSA = Constants.RACEAMPIFICATION08;
+        this.raceAmplificationFA = Constants.RACEAMPIFICATION08 + this.angelModifier
+                + this.strategyModifier;
+        this.raceAmplificationSA = Constants.RACEAMPIFICATION08 + this.angelModifier
+                + this.strategyModifier;
     }
 
     @Override
     public void calculateRaceAmplification(final Wizard wizard) {
-        this.raceAmplificationFA = Constants.RACEAMPIFICATION105;
-        this.raceAmplificationSA = Constants.RACEAMPIFICATION105;
+        this.raceAmplificationFA = Constants.RACEAMPIFICATION105 + this.angelModifier
+                + this.strategyModifier;
+        this.raceAmplificationSA = Constants.RACEAMPIFICATION105 + this.angelModifier
+                + this.strategyModifier;
     }
     /**
      * @param ground Tipul terenului pe care va avea loc lupta
@@ -56,16 +73,12 @@ public final class Pyromancer extends Hero {
      * abilitati cu efect prelungit aplicate anterior).
      */
     @Override
-    public void calculateDamage(final Character ground, final Hero h, final int level,
-                                final Character[][] map, final ArrayList<Angel> angels,
-                                final Integer[][] angelsPosition) {
+    public void calculateDamage(final Character ground, final Hero h, final int level) {
         h.setKiller(this);
         this.setDamageAbilities(level);
         float toRoundDamageFA = this.damageFirstAbility;
         toRoundDamageFA *= this.calculateGroundAmplification(ground);
         h.calculateRaceAmplificationFor(this);
-        CheckForAngels check = new CheckForAngels(map, angels, angelsPosition);
-        check.check(this);
         toRoundDamageFA *= this.raceAmplificationFA;
         float toRoundDamageSA = this.damageSecondAbility;
         toRoundDamageSA *= this.calculateGroundAmplification(ground);
@@ -148,5 +161,20 @@ public final class Pyromancer extends Hero {
     @Override
     public void interactWith(final Angel a) {
         a.accept(this);
+    }
+
+    @Override
+    public void strategy() {
+        float maxLevelHp = this.getInitialhp() + this.getLevel() * this.getHpperlevel();
+        if (maxLevelHp / Constants.FOUR < this.getHp()) {
+            if (this.getHp() < maxLevelHp / Constants.THREE) {
+                this.setHp((int) (this.getHp() * Constants.HPMODIFIER075));
+                this.strategyModifier += Constants.STRATEGYMODIFIER07;
+            }
+        }
+        if (this.getHp() < maxLevelHp / Constants.FOUR) {
+            this.setHp((int) (this.getHp() * Constants.HPMODIFIER133));
+            this.strategyModifier -= Constants.STRATEGYMODIFIER03;
+        }
     }
 }

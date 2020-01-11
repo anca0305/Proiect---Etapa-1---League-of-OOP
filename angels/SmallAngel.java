@@ -1,7 +1,11 @@
 package angels;
 
 import common.Constants;
-import heroes.*;
+import heroes.Hero;
+import heroes.Knight;
+import heroes.Pyromancer;
+import heroes.Rogue;
+import heroes.Wizard;
 
 public class SmallAngel extends Angel {
 
@@ -14,8 +18,7 @@ public class SmallAngel extends Angel {
      */
     @Override
     public void interactWith(final Knight knight) {
-        knight.setRaceAmplificationFA(knight.getRaceAmplificationFA() * Constants.RACEMODIFIER11);
-        knight.setRaceAmplificationSA(knight.getRaceAmplificationSA() * Constants.RACEMODIFIER11);
+        knight.setAngelModifier(knight.getAngelModifier() + Constants.ANGELMODIFIER1);
         knight.setHp(knight.getHp() + Constants.HPMODIFIER10);
     }
     /**
@@ -23,10 +26,7 @@ public class SmallAngel extends Angel {
      */
     @Override
     public void interactWith(final Pyromancer pyromancer) {
-        pyromancer.setRaceAmplificationFA(pyromancer.getRaceAmplificationFA()
-                * Constants.RACEMODIFIER115);
-        pyromancer.setRaceAmplificationSA(pyromancer.getRaceAmplificationSA()
-                * Constants.RACEMODIFIER115);
+        pyromancer.setAngelModifier(pyromancer.getAngelModifier() + Constants.ANGELMODIFIER15);
         pyromancer.setHp(pyromancer.getHp() + Constants.HPMODIFIER15);
     }
     /**
@@ -34,8 +34,7 @@ public class SmallAngel extends Angel {
      */
     @Override
     public void interactWith(final Rogue rogue) {
-        rogue.setRaceAmplificationFA(rogue.getRaceAmplificationFA() * Constants.RACEMODIFIER105);
-        rogue.setRaceAmplificationSA(rogue.getRaceAmplificationSA() * Constants.RACEMODIFIER105);
+        rogue.setAngelModifier(rogue.getAngelModifier() + Constants.ANGELMODIFIER05);
         rogue.setHp(rogue.getHp() + Constants.HPMODIFIER20);
     }
     /**
@@ -43,8 +42,7 @@ public class SmallAngel extends Angel {
      */
     @Override
     public void interactWith(final Wizard wizard) {
-        wizard.setRaceAmplificationFA(wizard.getRaceAmplificationFA() * Constants.RACEMODIFIER11);
-        wizard.setRaceAmplificationSA(wizard.getRaceAmplificationSA() * Constants.RACEMODIFIER11);
+        wizard.setAngelModifier(wizard.getAngelModifier() + Constants.ANGELMODIFIER1);
         wizard.setHp(wizard.getHp() + Constants.HPMODIFIER25);
     }
     /**

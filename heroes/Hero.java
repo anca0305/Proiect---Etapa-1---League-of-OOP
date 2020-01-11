@@ -1,14 +1,21 @@
 package heroes;
 
-import angels.*;
+import angels.Angel;
+import angels.DamageAngel;
+import angels.DarkAngel;
+import angels.Dracula;
+import angels.GoodBoy;
+import angels.LevelUpAngel;
+import angels.LifeGiver;
+import angels.SmallAngel;
+import angels.Spawner;
+import angels.TheDoomer;
+import angels.XPAngel;
 import common.Constants;
-
-import java.util.ArrayList;
 
 public abstract class Hero {
     private final int id;
-    private final String name;
-    private int checked = 0;
+    protected String name;
     private final Character mainGround;
     private final int initialhp;
     private final int hpperlevel;
@@ -25,8 +32,6 @@ public abstract class Hero {
     protected Character currentGround;
     private int x;
     private int y;
-    private int oldX = 0;
-    private int oldY = 0;
     private int hp;
     private int xp = Constants.DEFAULTVALUE;
     private int level = Constants.DEFAULTVALUE;
@@ -34,6 +39,8 @@ public abstract class Hero {
     private int dead = Constants.DEFAULTVALUE;
     private Hero killer;
     private int oldLevel = Constants.DEFAULTVALUE;
+    protected float angelModifier = Constants.DEFAULTRACEAMPIFICATION;
+    protected float strategyModifier = Constants.DEFAULTRACEAMPIFICATION;
     /**
      * Getter pentru vechiul nivel (folosit pentru a determina cate nivele a crescut).
      */
@@ -56,8 +63,7 @@ public abstract class Hero {
      * Constructor pentru un erou.
      */
     public Hero(final Character mainGround, final int x, final int y,
-                final int initialhp, final int hpperlevel, final float bonusDamage,
-                final int id, final String name) {
+                final int initialhp, final int hpperlevel, final float bonusDamage, final int id) {
         this.mainGround = mainGround;
         this.x = x;
         this.y = y;
@@ -66,7 +72,6 @@ public abstract class Hero {
         this.bonusDamage = bonusDamage;
         this.hp = initialhp;
         this.id = id;
-        this.name = name;
     }
     /**
      * Functia va verifica nivelul eroului dupa o lupta. Nivelul se va modifica in functie de xp-ul
@@ -103,8 +108,6 @@ public abstract class Hero {
      * Functia va reseta pozitia eroului, plasandu-l pe harta la noile coordonate.
      */
     public void resetPosition(final int newX, final int newY) {
-        this.oldX = this.x;
-        this.oldY = this.y;
         this.x = newX;
         this.y = newY;
     }
@@ -160,9 +163,7 @@ public abstract class Hero {
 
     public abstract void calculateRaceAmplification(Wizard wizard);
 
-    public abstract void calculateDamage(Character ground, Hero h, int nlevel,
-                                         Character[][] map, ArrayList<Angel> angels,
-                                         Integer[][] angelsPosition);
+    public abstract void calculateDamage(Character ground, Hero h, int nlevel);
     /**
      * @param decreasehp Valoarea cu care va scadea hp-ul eroului
      * Functia seteaza noua valoare a hp-ului.
@@ -300,30 +301,6 @@ public abstract class Hero {
 
     public abstract void interactWith(Angel a);
     /**
-     * Setter pentru modificatorul de rasa al primei abilitati.
-     */
-    public void setRaceAmplificationFA(final float raceAmplificationFA) {
-        this.raceAmplificationFA = raceAmplificationFA;
-    }
-    /**
-     * Setter pentru modificatorul de rasa al celei de-a doua abilitati.
-     */
-    public void setRaceAmplificationSA(final float raceAmplificationSA) {
-        this.raceAmplificationSA = raceAmplificationSA;
-    }
-    /**
-     * Getter pentru modificatorul de rasa al primei abilitati.
-     */
-    public float getRaceAmplificationFA() {
-        return raceAmplificationFA;
-    }
-    /**
-     * Getter pentru modificatorul de rasa al celei de-a doua abilitati.
-     */
-    public float getRaceAmplificationSA() {
-        return raceAmplificationSA;
-    }
-    /**
      * Getter pentru valoarea xp-ului.
      */
     public int getXp() {
@@ -342,20 +319,6 @@ public abstract class Hero {
         this.level = level;
     }
     /**
-     * Getter pentru valoarea de adevar a proprietatii checked
-     * (au fost aplicate modificarile date de prezenta unui inger in aceeasi pozitie pe harta cu
-     * cea a eroului).
-     */
-    public int getChecked() {
-        return checked;
-    }
-    /**
-     * Setter pentru valoarea de adevar a proprietatii checked.
-     */
-    public void setChecked(final int checked) {
-        this.checked = checked;
-    }
-    /**
      * Getter pentru numele eroului.
      */
     public String getName() {
@@ -367,15 +330,22 @@ public abstract class Hero {
     public int getID() {
         return id;
     }
-
-    public int getOldX() {
-        return oldX;
+    /**
+     * Getter pentru modificatorul dat de un ingel.
+     */
+    public float getAngelModifier() {
+        return angelModifier;
     }
-
-    public int getOldY() {
-        return oldY;
+    /**
+     * Setter pentru modificatorul dat de un ingel.
+     */
+    public void setAngelModifier(final float angelModifier) {
+        this.angelModifier = angelModifier;
     }
-
+    /**
+     * Functia ce va descrie strategia fiecarui erou.
+     */
+    public abstract void strategy();
     /**
      * Suprascrierea metodei toString pentru a respecta output-ul cerut.
      */

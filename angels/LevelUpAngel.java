@@ -1,7 +1,11 @@
 package angels;
 
 import common.Constants;
-import heroes.*;
+import heroes.Hero;
+import heroes.Knight;
+import heroes.Pyromancer;
+import heroes.Rogue;
+import heroes.Wizard;
 
 public class LevelUpAngel extends Angel {
 
@@ -13,7 +17,7 @@ public class LevelUpAngel extends Angel {
      * Functie ce ofera XP cat are nevoie eroul pentru a avansa la nivelul urmator.
      */
     public void levelUp(final Hero h) {
-        h.setXp2(Constants.MINHPFORLEVEL1 + (h.getLevel() + 1) * Constants.HPLEVELUP);
+        h.setXp2(Constants.MINHPFORLEVEL1 + (h.getLevel() * Constants.HPLEVELUP));
         h.setHp(h.getInitialhp() + h.getHpperlevel() * (h.getLevel() + 1));
         h.setOldLevel(h.getLevel());
         h.setLevel(h.getLevel() + 1);
@@ -24,8 +28,7 @@ public class LevelUpAngel extends Angel {
     @Override
     public void interactWith(final Knight knight) {
         this.levelUp(knight);
-        knight.setRaceAmplificationFA(knight.getRaceAmplificationFA() * Constants.RACEMODIFIER11);
-        knight.setRaceAmplificationSA(knight.getRaceAmplificationSA() * Constants.RACEMODIFIER11);
+        knight.setAngelModifier(knight.getAngelModifier() + Constants.ANGELMODIFIER1);
     }
     /**
      * Functie ce aplica modificarile date de LevelUpAngel unui erou de tip Pyromancer.
@@ -33,10 +36,7 @@ public class LevelUpAngel extends Angel {
     @Override
     public void interactWith(final Pyromancer pyromancer) {
         this.levelUp(pyromancer);
-        pyromancer.setRaceAmplificationFA(pyromancer.getRaceAmplificationFA()
-                * Constants.RACEMODIFIER12);
-        pyromancer.setRaceAmplificationSA(pyromancer.getRaceAmplificationSA()
-                * Constants.RACEMODIFIER12);
+        pyromancer.setAngelModifier(pyromancer.getAngelModifier() + Constants.ANGELMODIFIER2);
     }
     /**
      * Functie ce aplica modificarile date de LevelUpAngel unui erou de tip Rogue.
@@ -44,8 +44,7 @@ public class LevelUpAngel extends Angel {
     @Override
     public void interactWith(final Rogue rogue) {
         this.levelUp(rogue);
-        rogue.setRaceAmplificationFA(rogue.getRaceAmplificationFA() * Constants.RACEMODIFIER115);
-        rogue.setRaceAmplificationSA(rogue.getRaceAmplificationSA() * Constants.RACEMODIFIER115);
+        rogue.setAngelModifier(rogue.getAngelModifier() + Constants.ANGELMODIFIER15);
     }
     /**
      * Functie ce aplica modificarile date de LevelUpAngel unui erou de tip Wizard.
@@ -53,8 +52,7 @@ public class LevelUpAngel extends Angel {
     @Override
     public void interactWith(final Wizard wizard) {
         this.levelUp(wizard);
-        wizard.setRaceAmplificationFA(wizard.getRaceAmplificationFA() * Constants.RACEMODIFIER125);
-        wizard.setRaceAmplificationSA(wizard.getRaceAmplificationSA() * Constants.RACEMODIFIER125);
+        wizard.setAngelModifier(wizard.getAngelModifier() + Constants.ANGELMODIFIER25);
     }
     /**
      * Functie folosita pentru a creea legatura folosita de catre tehnica double dispatch.
