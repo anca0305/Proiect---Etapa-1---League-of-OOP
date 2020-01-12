@@ -30,9 +30,9 @@ public final class Rogue extends Hero {
     @Override
     public void calculateRaceAmplification(final Knight knight) {
         this.raceAmplificationFA = Constants.RACEAMPIFICATION09 + this.angelModifier
-                + this.strategyModifier;
+                + this.strategyModifier - Constants.HELPER;
         this.raceAmplificationSA = Constants.RACEAMPIFICATION08 + this.angelModifier
-                + this.strategyModifier;
+                + this.strategyModifier - Constants.HELPER;
     }
 
     @Override
@@ -46,9 +46,9 @@ public final class Rogue extends Hero {
     @Override
     public void calculateRaceAmplification(final Rogue rogue) {
         this.raceAmplificationFA = Constants.RACEAMPIFICATION12 + this.angelModifier
-                + this.strategyModifier;
+                + this.strategyModifier - Constants.HELPER;
         this.raceAmplificationSA = Constants.RACEAMPIFICATION09 + this.angelModifier
-                + this.strategyModifier;
+                + this.strategyModifier - Constants.HELPER;
     }
 
     @Override

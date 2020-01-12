@@ -80,21 +80,26 @@ public abstract class Angel {
      * pe care acesta o executa asupra unui erou.
      */
     public void action(final Hero h, final BufferedWriter writer) throws IOException {
-        if (this.getType() == Constants.ANGELTYPE1 || this.getType() == Constants.ANGELTYPE3) {
+        if (this.getType() == Constants.ANGELTYPE1
+                || (this.getType() == Constants.ANGELTYPE3 && h.getDead() == 1)) {
             writer.write(this.getName() + " helped " + h.getName() + " " + h.getID());
+            writer.write("\n");
         }
         if (this.getType() == Constants.ANGELTYPE2 || this.getType() == Constants.ANGELTYPE4) {
             writer.write(this.getName() + " hit " + h.getName() + " " + h.getID());
+            writer.write("\n");
         }
-        if (this.getType() == Constants.ANGELTYPE3) {
-            writer.write("\n" + "Player " + h.getName() + " " + h.getID()
+        if (this.getType() == Constants.ANGELTYPE3 && h.getDead() == 1) {
+            writer.write("Player " + h.getName() + " " + h.getID()
                     + " was brought to life by an angel");
+            writer.write("\n");
         }
-        if (this.getType() == Constants.ANGELTYPE4) {
-            writer.write("\n" + "Player " + h.getName() + " " + h.getID()
+        if (this.getType() == Constants.ANGELTYPE4
+                || (this.getType() == Constants.ANGELTYPE2 && h.getDead() == 1)) {
+            writer.write("Player " + h.getName() + " " + h.getID()
                     + " was killed by an angel");
+            writer.write("\n");
         }
-        writer.write("\n");
         if (this.getType() == Constants.ANGELTYPE1 || this.getType() == Constants.ANGELTYPE2) {
             for (int i = h.getOldLevel() + 1; i <= h.getLevel(); i++) {
                 writer.write(h.getName() + " " + h.getID() + " reached level " + i + "\n");

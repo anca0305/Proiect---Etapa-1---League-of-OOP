@@ -56,8 +56,7 @@ public final class Constants {
     public static final int DAMAGEPERLEVELFAK = 30;
     public static final int INITIALDAMAGESAK = 100;
     public static final int DAMAGEPERLEVELSAK = 40;
-    public static final int PROCENTAGEHPILIMITFAK = 20;
-    public static final int PROCENTAGEHPSLIMITFAK = 40;
+    public static final float MAXPROCENTAGEHP = 0.4f;
     public static final float PROCENTAGEFAK = 0.2f;
     public static final float ANGELMODIFIER05 = 0.05f;
     public static final float ANGELMODIFIER1 = 0.1f;
@@ -113,4 +112,6 @@ public final class Constants {
     public static final int FOUR = 4;
     public static final int FIVE = 5;
     public static final int SEVEN = 7;
+    public static final int TEN = 10;
+    public static final float HELPER = 0.0001f;
 }

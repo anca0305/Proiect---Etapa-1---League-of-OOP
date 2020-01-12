@@ -79,6 +79,9 @@ public abstract class Hero {
      * valoarea hp-ului pe care il va primi pentru fiecare nivel.
      */
     public void checkLevel() {
+        if (this.hp < Constants.DEFAULTVALUE) {
+            this.dead = 1;
+        }
         if (this.xp < Constants.MINHPFORLEVEL1) {
             return;
         }

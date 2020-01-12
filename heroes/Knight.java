@@ -62,16 +62,14 @@ public final class Knight extends Hero {
      */
     public boolean execute(final Hero h) {
         float minHp;
-        if (Constants.PROCENTAGEHPILIMITFAK + h.getLevel() >= Constants.PROCENTAGEHPSLIMITFAK) {
-            h.setDead(1);
-            h.setXp(0);
-            return true;
+        minHp = Constants.PROCENTAGEFAK + h.getLevel() / Constants.TEN;
+        if (minHp > Constants.MAXPROCENTAGEHP) {
+            minHp = Constants.MAXPROCENTAGEHP;
         }
-        minHp = (Constants.PROCENTAGEFAK + h.getLevel()) * (h.getInitialhp()
-                + h.getLevel() * h.getHpperlevel());
+        minHp *= (h.getInitialhp() + h.getLevel() * h.getHpperlevel());
         if (h.getHp() < minHp) {
             h.setDead(1);
-            h.setXp(0);
+            //h.setXp(0);
             return true;
         }
         return false;

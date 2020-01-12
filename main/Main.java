@@ -64,9 +64,8 @@ final class Main {
                                     heroes.get(k).setDead(1);
                             }
                             if (heroes.get(j).getDead() == 1) {
-                                if (heroes.get(j).getKiller() != null
-                                        && heroes.get(j).getKiller().getDead() == 0) {
-                                    heroes.get(j).getKiller().setXp(heroes.get(j).getLevel());
+                                heroes.get(j).getKiller().setXp(heroes.get(j).getLevel());
+                                if (heroes.get(k).getDead() !=1) {
                                     heroes.get(j).getKiller().checkLevel();
                                 }
                             }
@@ -76,16 +75,20 @@ final class Main {
                                         + heroes.get(k).getID() + " was killed by "
                                         + heroes.get(j).getName() + " " + heroes.get(j).getID()
                                         + "\n");
+                                heroes.get(k).getKiller().setXp(heroes.get(k).getLevel());
+                                heroes.get(k).getKiller().checkLevel();
+                                if (heroes.get(j).getDead() == 1) {
+                                    heroes.get(j).getKiller().checkLevel();
+                                }
                                 if (heroes.get(k).getKiller() != null
                                         && heroes.get(k).getKiller().getDead() == 0) {
-                                    heroes.get(k).getKiller().setXp(heroes.get(k).getLevel());
-                                    heroes.get(k).getKiller().checkLevel();
                                     for (int noLevels = heroes.get(j).getOldLevel() + 1;
                                          noLevels <= heroes.get(j).getLevel(); noLevels++) {
                                         writer.write(heroes.get(j).getName() + " "
                                                 + heroes.get(j).getID() + " reached level "
                                                 + noLevels + "\n");
                                     }
+                                    heroes.get(j).setOldLevel(heroes.get(j).getLevel());
                                 }
                             }
                             if (heroes.get(j).getDead() == 1 || heroes.get(j).getHp() < 0) {
@@ -93,12 +96,22 @@ final class Main {
                                         + heroes.get(j).getID() + " was killed by "
                                         + heroes.get(k).getName() + " " + heroes.get(k).getID()
                                         + "\n");
+                                if (heroes.get(k).getDead() == 1) {
+                                    for (int noLevels = heroes.get(j).getOldLevel() + 1;
+                                         noLevels <= heroes.get(j).getLevel(); noLevels++) {
+                                        writer.write(heroes.get(j).getName() + " "
+                                                + heroes.get(j).getID() + " reached level "
+                                                + noLevels + "\n");
+                                    }
+                                    heroes.get(j).setOldLevel(heroes.get(j).getLevel());
+                                }
                                 for (int noLevels = heroes.get(k).getOldLevel() + 1;
                                      noLevels <= heroes.get(k).getLevel(); noLevels++) {
                                     writer.write(heroes.get(k).getName() + " "
                                             + heroes.get(k).getID() + " reached level " + noLevels
                                             + "\n");
                                 }
+                                heroes.get(k).setOldLevel(heroes.get(k).getLevel());
                             }
                         }
                     }
@@ -110,15 +123,21 @@ final class Main {
                             + a.getX() + " " + a.getY() + "\n");
                     for (Hero h : heroes) {
                         if (a.checkPosition(h) == 1) {
-                            if (h.getDead() != 1
-                                    || (h.getDead() == 1 && a.getType() == Constants.ANGELTYPE3)) {
+                            if (h.getDead() != 1) {
                                 h.interactWith(a);
+                                h.checkLevel();
                                 a.action(h, writer);
                             }
+                            if (h.getDead() == 1 && a.getType() == Constants.ANGELTYPE3) {
+                                a.action(h, writer);
+                                h.interactWith(a);
+                            }
                         }
-                        System.out.println(h.getName() + " " + h.getID() + " " + h.toString());
                     }
                 }
+            }
+            for (Hero h : heroes) {
+                System.out.println(h.getName() + " " + h.getID() + " " + h.toString());
             }
         }
         writer.write("\n");

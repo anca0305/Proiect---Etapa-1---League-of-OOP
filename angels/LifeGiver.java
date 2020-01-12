@@ -21,6 +21,8 @@ public class LifeGiver extends Angel {
         int maxLevelHp = knight.getInitialhp() + knight.getLevel() * knight.getHpperlevel();
         if ((knight.getHp() + Constants.HPMODIFIER100) <= maxLevelHp) {
             knight.setHp(knight.getHp() + Constants.HPMODIFIER100);
+        } else {
+            knight.setHp(maxLevelHp);
         }
     }
     /**
@@ -30,8 +32,11 @@ public class LifeGiver extends Angel {
     public void interactWith(final Pyromancer pyromancer) {
         int maxLevelHp = pyromancer.getInitialhp()
                 + pyromancer.getLevel() * pyromancer.getHpperlevel();
-        if ((pyromancer.getHp() + Constants.HPMODIFIER80) <= maxLevelHp)
-        pyromancer.setHp(pyromancer.getHp() + Constants.HPMODIFIER80);
+        if ((pyromancer.getHp() + Constants.HPMODIFIER80) <= maxLevelHp) {
+            pyromancer.setHp(pyromancer.getHp() + Constants.HPMODIFIER80);
+        } else {
+            pyromancer.setHp(maxLevelHp);
+        }
     }
     /**
      * Functie ce aplica modificarile date de LifeGiver unui erou de tip Rogue.
@@ -41,6 +46,8 @@ public class LifeGiver extends Angel {
         int maxLevelHp = rogue.getInitialhp() + rogue.getLevel() * rogue.getHpperlevel();
         if ((rogue.getHp() + Constants.HPMODIFIER90) <= maxLevelHp) {
             rogue.setHp(rogue.getHp() + Constants.HPMODIFIER90);
+        } else {
+            rogue.setHp(maxLevelHp);
         }
     }
     /**
@@ -51,6 +58,8 @@ public class LifeGiver extends Angel {
         int maxLevelHp = wizard.getInitialhp() + wizard.getLevel() * wizard.getHpperlevel();
         if ((wizard.getHp() + Constants.HPMODIFIER120) <= maxLevelHp) {
             wizard.setHp(wizard.getHp() + Constants.HPMODIFIER120);
+        } else {
+            wizard.setHp(maxLevelHp);
         }
     }
     /**
